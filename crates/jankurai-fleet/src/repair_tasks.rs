@@ -8,9 +8,8 @@
 //! tool-adoption opportunities, and hard structure/ownership findings — and is
 //! given a stable SHA fingerprint id so the feed diffs cleanly across runs.
 
-use crate::audit::copy_code::{CopyCodeClass, CopyCodeSeverity};
-use crate::audit::{run_audit_with_options, AuditOptions};
-use crate::model::{Finding, Report, ToolAdoptionItem};
+use jankurai_audit_kernel::audit::copy_code::{CopyCodeClass, CopyCodeSeverity};
+use jankurai_audit_kernel::model::{Finding, Report, ToolAdoptionItem};
 use anyhow::{bail, Context, Result};
 use serde::Serialize;
 use sha2::{Digest, Sha256};
@@ -92,11 +91,15 @@ pub struct RepairTaskTotals {
 }
 
 /// Entry point for `jankurai repair-tasks`.
-pub fn run(args: RepairTasksArgs) -> Result<()> {
+///
+/// `audit` is the core audit runner injected by the caller so this crate never
+/// depends back on `jankurai-core`; it scores a single repo into a [`Report`]
+/// exactly as `run_audit_with_options(repo, &[], AuditOptions::default())` did.
+pub fn run(args: RepairTasksArgs, audit: &dyn Fn(&Path) -> Result<Report>) -> Result<()> {
     if !args.repo.exists() {
         bail!("repo path does not exist: {}", args.repo.display());
     }
-    let report = audit_repo(&args.repo)?;
+    let report = audit_repo(&args.repo, audit)?;
     let repo_label = display_path(&args.repo);
     let bank = build_task_bank(&repo_label, &report);
 
@@ -109,10 +112,9 @@ pub fn run(args: RepairTasksArgs) -> Result<()> {
     emit(&args.out, &rendered)
 }
 
-/// Run the existing full audit engine over a single repo.
-fn audit_repo(repo: &Path) -> Result<Report> {
-    run_audit_with_options(repo, &[], AuditOptions::default())
-        .with_context(|| format!("audit {}", repo.display()))
+/// Run the existing full audit engine (injected by the caller) over a single repo.
+fn audit_repo(repo: &Path, audit: &dyn Fn(&Path) -> Result<Report>) -> Result<Report> {
+    audit(repo).with_context(|| format!("audit {}", repo.display()))
 }
 
 /// Project a `Report` into a deduplicated repair-task bank. All detection and
@@ -428,7 +430,7 @@ fn short_id(id: &str) -> String {
 /// Write the rendered feed to the chosen sink (stdout or a file).
 fn emit(out: &Option<String>, rendered: &str) -> Result<()> {
     match out {
-        Some(path) => crate::render::write_json(path, rendered),
+        Some(path) => jankurai_audit_kernel::render::write_json(path, rendered),
         None => {
             println!("{rendered}");
             Ok(())
@@ -443,10 +445,10 @@ fn display_path(repo: &Path) -> String {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::audit::copy_code::{
+    use jankurai_audit_kernel::audit::copy_code::{
         CopyCodeClass, CopyCodeInstance, CopyCodeKind, CopyCodeReport, CopyCodeSeverity,
     };
-    use crate::model::{Finding, ToolAdoptionItem, ToolAdoptionReadiness};
+    use jankurai_audit_kernel::model::{Finding, ToolAdoptionItem, ToolAdoptionReadiness};
 
     fn finding(category: &str, hardness: &str, path: &str, fingerprint: &str) -> Finding {
         Finding {
@@ -566,7 +568,7 @@ mod tests {
             run_id: None,
             started_at: None,
             elapsed_ms: None,
-            scope: crate::model::Scope {
+            scope: jankurai_audit_kernel::model::Scope {
                 mode: "full".to_string(),
                 paths: vec![],
             },
@@ -594,7 +596,7 @@ mod tests {
             security_evidence: Default::default(),
             boundaries: Default::default(),
             copy_code: None,
-            profile_structure: crate::model::ProfileStructureReadiness {
+            profile_structure: jankurai_audit_kernel::model::ProfileStructureReadiness {
                 applicable_count: 0,
                 canonical_count: 0,
                 noncanonical_count: 0,
@@ -609,8 +611,8 @@ mod tests {
         }
     }
 
-    fn ux_qa_readiness() -> crate::model::UxQaReadiness {
-        crate::model::UxQaReadiness {
+    fn ux_qa_readiness() -> jankurai_audit_kernel::model::UxQaReadiness {
+        jankurai_audit_kernel::model::UxQaReadiness {
             web_surface: false,
             has_rendered_ux_lane: false,
             missing_categories: vec![],

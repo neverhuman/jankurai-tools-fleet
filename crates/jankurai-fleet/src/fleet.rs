@@ -6,8 +6,7 @@
 //! scoring logic); each repo is scored with `run_audit_with_options` and the
 //! relevant report fields are projected into a stable matrix row.
 
-use crate::audit::{run_audit_with_options, AuditOptions};
-use crate::model::{Finding, Report, AUDITOR_VERSION};
+use jankurai_audit_kernel::model::{Finding, Report, AUDITOR_VERSION};
 use anyhow::{bail, Context, Result};
 use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
@@ -159,7 +158,11 @@ pub struct FleetMatrix {
 }
 
 /// Entry point for `jankurai fleet`.
-pub fn run(args: FleetArgs) -> Result<()> {
+///
+/// `audit` is the core audit runner injected by the caller so this crate never
+/// depends back on `jankurai-core`; it scores a single repo into a [`Report`]
+/// exactly as `run_audit_with_options(repo, &[], AuditOptions::default())` did.
+pub fn run(args: FleetArgs, audit: &dyn Fn(&Path) -> Result<Report>) -> Result<()> {
     let repos = resolve_repos(&args.repos)?;
     if repos.is_empty() {
         bail!("no repos to audit; pass repo paths or populate ~/.jankurai/fleet.toml");
@@ -187,7 +190,7 @@ pub fn run(args: FleetArgs) -> Result<()> {
                 }),
             }
         } else {
-            match audit_repo(repo) {
+            match audit_repo(repo, audit) {
                 Ok(report) => {
                     if args.write_cache {
                         // Best-effort: a cache-write failure must not fail the fleet run.
@@ -264,10 +267,9 @@ fn parse_fleet_config(text: &str) -> Result<Vec<PathBuf>> {
     Ok(repos)
 }
 
-/// Run the existing full audit engine over a single repo.
-fn audit_repo(repo: &Path) -> Result<Report> {
-    run_audit_with_options(repo, &[], AuditOptions::default())
-        .with_context(|| format!("audit {}", repo.display()))
+/// Run the existing full audit engine (injected by the caller) over a single repo.
+fn audit_repo(repo: &Path, audit: &dyn Fn(&Path) -> Result<Report>) -> Result<Report> {
+    audit(repo).with_context(|| format!("audit {}", repo.display()))
 }
 
 /// Project a `Report` into a matrix row. All scoring lives in the audit engine;
@@ -312,10 +314,10 @@ fn build_row(repo: &Path, report: &Report) -> FleetRow {
 /// Project a repo's last persisted score into a cached/stale row (cached mode).
 /// Returns `None` only when no cached score file exists at all.
 fn cached_row(repo: &Path) -> Option<FleetRow> {
-    let path = crate::local_state::preferred_repo_path(
+    let path = jankurai_audit_kernel::local_state::preferred_repo_path(
         repo,
-        crate::local_state::SCORE_JSON,
-        Some(crate::local_state::LEGACY_SCORE_JSON),
+        jankurai_audit_kernel::local_state::SCORE_JSON,
+        Some(jankurai_audit_kernel::local_state::LEGACY_SCORE_JSON),
     );
     let text = std::fs::read_to_string(&path).ok()?;
     let cached: CachedScore = serde_json::from_str(&text).ok()?;
@@ -543,7 +545,7 @@ fn render_markdown(matrix: &FleetMatrix) -> String {
 /// Write the rendered matrix to the chosen sink (stdout or a file).
 fn emit(out: &Option<String>, rendered: &str) -> Result<()> {
     match out {
-        Some(path) => crate::render::write_json(path, rendered),
+        Some(path) => jankurai_audit_kernel::render::write_json(path, rendered),
         None => {
             println!("{rendered}");
             Ok(())
@@ -708,9 +710,9 @@ fn repo_version(repo: &Path) -> Option<String> {
 /// Persist a repo's audit report to `.jankurai/repo-score.json` so a later `--mode cached`
 /// run has inputs. Writes only under the repo's gitignored `.jankurai/`.
 fn write_score_cache(repo: &Path, report: &Report) -> Result<()> {
-    let dir = repo.join(crate::local_state::LOCAL_ROOT);
+    let dir = repo.join(jankurai_audit_kernel::local_state::LOCAL_ROOT);
     std::fs::create_dir_all(&dir).with_context(|| format!("create {}", dir.display()))?;
-    let path = repo.join(crate::local_state::SCORE_JSON);
+    let path = repo.join(jankurai_audit_kernel::local_state::SCORE_JSON);
     let json = serde_json::to_string_pretty(report)?;
     std::fs::write(&path, json).with_context(|| format!("write {}", path.display()))?;
     Ok(())

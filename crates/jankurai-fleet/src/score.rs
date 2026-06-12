@@ -1,5 +1,5 @@
 use crate::score_history::{self, HistorySource};
-use crate::validation::{self, ArtifactSchema};
+use jankurai_audit_kernel::validation::{self, ArtifactSchema};
 use anyhow::{Context, Result};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -90,7 +90,7 @@ pub fn run_diff(args: DiffArgs) -> Result<()> {
     let head = load_json(&args.head)?;
     let report = build_diff_report(&args.base, &args.head, &base, &head);
     validation::write_json(&repo, ArtifactSchema::ScoreDiff, &args.out, &report)?;
-    crate::render::write_markdown(&args.md, &render_diff_markdown(&report))?;
+    jankurai_audit_kernel::render::write_markdown(&args.md, &render_diff_markdown(&report))?;
     Ok(())
 }
 
@@ -98,7 +98,7 @@ pub fn run_trend(args: TrendArgs) -> Result<()> {
     let repo = std::env::current_dir()?;
     let report = build_trend_report(&args.history, args.window)?;
     validation::write_json(&repo, ArtifactSchema::ScoreTrend, &args.out, &report)?;
-    crate::render::write_markdown(&args.md, &render_trend_markdown(&report))?;
+    jankurai_audit_kernel::render::write_markdown(&args.md, &render_trend_markdown(&report))?;
     Ok(())
 }
 
@@ -291,7 +291,7 @@ fn is_high_or_critical(severity: &str) -> bool {
     matches!(severity, "high" | "critical")
 }
 
-pub(crate) fn join_or_none(values: &[String]) -> String {
+pub fn join_or_none(values: &[String]) -> String {
     if values.is_empty() {
         "none".into()
     } else {

@@ -26,10 +26,20 @@ use std::process::Command;
 
 use anyhow::{Context, Result};
 
-use crate::audit::{self, AuditOptions};
-use crate::commands::proof::{self, ProofPlanArgs};
-use crate::render::{render_markdown, write_markdown};
-use crate::validation::{self, ArtifactSchema};
+use jankurai_audit_kernel::model::Report;
+use jankurai_audit_kernel::render::{render_markdown, write_markdown};
+use jankurai_audit_kernel::validation::{self, ArtifactSchema};
+
+/// The core audit runner injected by the caller so this crate never depends back
+/// on `jankurai-core`. Scores `changed` files under `repo`; `changed_fast`
+/// mirrors `AuditOptions.changed_fast` (the diff-lane fast path).
+pub type AuditRunner<'a> = dyn Fn(&Path, &[PathBuf], bool) -> Result<Report> + 'a;
+
+/// The core proof-plan runner injected by the caller. Mirrors a `proof` run with
+/// `ProofPlanArgs { repo, changed, changed_from, out, md }`; best-effort, so a
+/// returned error is logged and ignored by the caller exactly as before.
+pub type ProofRunner<'a> =
+    dyn Fn(PathBuf, Vec<PathBuf>, Option<String>, Option<String>, Option<String>) -> Result<()> + 'a;
 
 /// CLI arguments for `jankurai diff-audit`.
 ///
@@ -73,7 +83,7 @@ impl Default for DiffAuditArgs {
 /// Entry point. Equivalent to running `proof --changed-from <base>` then
 /// `audit --changed <files...> --mode advisory --changed-fast`, with one
 /// joint failure decision at the end.
-pub fn run(args: DiffAuditArgs) -> Result<()> {
+pub fn run(args: DiffAuditArgs, audit: &AuditRunner<'_>, proof: &ProofRunner<'_>) -> Result<()> {
     if std::env::var("JANKURAI_SKIP_HOOKS").as_deref() == Ok("1") {
         eprintln!("jankurai diff-audit: skipped (JANKURAI_SKIP_HOOKS=1)");
         return Ok(());
@@ -144,29 +154,20 @@ pub fn run(args: DiffAuditArgs) -> Result<()> {
             .clone()
             .unwrap_or_else(|| out_dir.join("proof-plan.md").to_string_lossy().into_owned());
         // Best-effort — a missing owner-map / test-map shouldn't fail the lane.
-        let proof_args = ProofPlanArgs {
-            repo: repo.clone(),
-            changed: changed.clone(),
-            changed_from: resolved_base.clone(),
-            out: Some(proof_out),
-            md: Some(proof_md),
-        };
-        if let Err(e) = proof::run_proof(proof_args) {
+        if let Err(e) = proof(
+            repo.clone(),
+            changed.clone(),
+            resolved_base.clone(),
+            Some(proof_out),
+            Some(proof_md),
+        ) {
             eprintln!("jankurai diff-audit: proof step warned (continuing): {e}");
         }
     }
 
     // Score the changed set. `changed_fast: true` tells the audit infrastructure
     // we're in a diff lane (skip score-history append, mark git mode).
-    let report = audit::run_audit_with_options(
-        &repo,
-        &changed,
-        AuditOptions {
-            self_audit: false,
-            proof_receipts: None,
-            changed_fast: !changed.is_empty(),
-        },
-    )?;
+    let report = audit(&repo, &changed, !changed.is_empty())?;
 
     let hard = report
         .decision
