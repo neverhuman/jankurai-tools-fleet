@@ -88,9 +88,15 @@ jobs:
           path: |
             target/jankurai/repo-score.json
             target/jankurai/repo-score.md
+            target/jankurai/repair-queue.jsonl
+            target/jankurai/proofbind/surface-witness.json
+            target/jankurai/proofbind/obligations.json
+            target/jankurai/proofmark/proofmark-receipt.json
+            target/jankurai/proofmark/proof-receipt.json
             target/jankurai/copy-code.json
             target/jankurai/copy-code.md
             target/jankurai/security/evidence.json
+            target/jankurai/language-bad-behavior.log
             target/jankurai/vibe-coverage.json
             target/jankurai/vibe-coverage.md
             target/jankurai/coverage/coverage-audit.json
