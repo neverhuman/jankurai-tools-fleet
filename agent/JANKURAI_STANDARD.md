@@ -73,14 +73,11 @@ Source-of-truth order:
 
 Operational surfaces:
 
-- CLI surface: `cargo run -p jankurai -- --help` and
-  `crates/jankurai/src/main.rs`; implementation modules live under
-  `crates/jankurai/src/commands/`.
-- Installed release binary: before trusting release scores, badge state, or CI
-  parity, refresh the repo-local binary with
-  `cargo install --path crates/jankurai --locked --force`, then verify
-  `which jankurai`, `jankurai version`, `jankurai versions`, and
-  `jankurai badge --link agent/jankurai-badge.json --update-readme --check`.
+- Governed CLI surface: `bash ops/ci/governed-jankurai --help`. Every invocation
+  verifies the immutable Jeryu-managed Jankurai 1.6.11 binary and its
+  content-addressed production receipt before execution. Repo-local builds,
+  ambient PATH selection, self-install, self-update, and fallback binaries are
+  forbidden.
 - Canonical recipes: `Justfile`; prefer `just fast`, `just score`,
   `just conformance`, `just paper`, and `just check` over ad hoc command
   guesses.
@@ -96,7 +93,7 @@ Operational surfaces:
   repeat the Jankurai name because the image already carries it.
 - Badge and paper publication: README badge state is generated from
   `agent/badge.toml`, the tracked accepted baseline under
-  `agent/baselines/`, and the installed `jankurai` binary. Ignored
+  `agent/baselines/`, and the governed Jankurai binary. Ignored
   `.jankurai/repo-score.*` files are local generated outputs and must not be used
   as public badge or ratchet sources. The README citation block must link to
   `paper/jankurai.pdf`. Public
@@ -281,7 +278,7 @@ Required lane names:
 - `fast`: deterministic local proof under 2 minutes
 - `contract`: public API/schema compatibility
 - `db`: migrations, constraints, tenant/data rules
-- `db-migration-analyze`: migration liability report (`jankurai migrate . --analyze --json target/jankurai/migration-report.json`); used when `agent/test-map.json` routes `db/migrations/` changes
+- `db-migration-analyze`: migration liability report (`bash ops/ci/governed-jankurai migrate . --analyze --json target/jankurai/migration-report.json`); used when `agent/test-map.json` routes `db/migrations/` changes
 - `web`: component/type/rendered UX behavior
 - `e2e`: critical browser journeys
 - `security`: secrets, dependencies, unsafe, SBOM/SCA
@@ -325,20 +322,23 @@ For non-trivial fixes, leave enough evidence for the next agent:
 
 Operational receipts from `doctor`, `init`, and phase closeouts belong under `target/jankurai/receipts/` and should be cited by path when they matter.
 
-Plotting integrations should use bounded history commands, such as `jankurai history export` or `jankurai score trend`, for score plots. Do not scrape full audit JSON when a bounded history command exists.
+Plotting integrations should use bounded history commands through
+`bash ops/ci/governed-jankurai`, such as `history export` or `score trend`, for
+score plots. Do not scrape full audit JSON when a bounded history command exists.
 
 ## User-Provided Plans
 
 When the user provides a paper, release, implementation, or handoff plan in the
 conversation, treat that plan as controlling. Do not route it through local phase
 or master-plan files unless the user explicitly names those local files. Before
-broad validation, run `jankurai lane` or `jankurai proof` against changed paths
-to choose the smallest credible proof lane. For audit requests, run
-`cargo run -p jankurai -- . --json .jankurai/repo-score.json --md .jankurai/repo-score.md`.
+broad validation, run `bash ops/ci/governed-jankurai lane` or
+`bash ops/ci/governed-jankurai proof` against changed paths to choose the smallest
+credible proof lane. For audit requests, run `bash ops/ci/audit.sh`.
 
 ## Kickoff Route
 
-Use `jankurai kickoff` as the no-write intake step for new user intent.
+Use `bash ops/ci/governed-jankurai kickoff` as the no-write intake step for new
+user intent.
 It should write only `target/jankurai/kickoff.json` and
 `target/jankurai/kickoff.md`, surface read-first files, ownership boundaries,
 proof lanes, clarifying questions, stop conditions, expected receipts, and
@@ -348,20 +348,21 @@ are visible.
 ## Local Commands
 
 ```bash
-jankurai kickoff . --intent "<change request>" --out target/jankurai/kickoff.json --md target/jankurai/kickoff.md
-jankurai versions
+bash ops/ci/governed-jankurai kickoff . --intent "<change request>" --out target/jankurai/kickoff.json --md target/jankurai/kickoff.md
+bash ops/ci/governed-jankurai versions
 just versions
 just fast
 just score
-cargo run -p jankurai -- copy-code . --json target/jankurai/copy-code.json --md target/jankurai/copy-code.md
+bash ops/ci/governed-jankurai copy-code . --json target/jankurai/copy-code.json --md target/jankurai/copy-code.md
 just paper
 just check
 just ci-doctor   # verify local toolchain matches CI
 just ci          # run every CI lane locally
 ```
 
-`jankurai upgrade` is write-capable; use `jankurai upgrade --score` to run the
-post-upgrade scoring lane.
+Jankurai self-update and self-install commands are forbidden. Tool identity
+changes flow only through the protected Jeryu tool manifest and a new
+content-addressed production installation receipt.
 
 ## CI Local Parity
 
@@ -379,8 +380,8 @@ Requirements:
 3. **Doctor.** `scripts/ci-doctor.sh` reports every tool the CI lanes need so
    contributors can verify their environment matches CI.
 4. **Pinned toolchain.** `rust-toolchain.toml`, `.tool-versions`, and the
-   pinned versions in `ops/ci/lib.sh` (cargo install versions, action SHAs,
-   Node version) keep local and remote environments identical.
+   governed Jankurai identity and other pinned versions in `ops/ci/lib.sh`
+   (action SHAs, Node version) keep local and remote environments identical.
 5. **Artifact assertions.** Each `ops/ci/*.sh` lane checks that every expected
    artifact path exists before exiting, so missing outputs fail locally too.
 6. **Container parity.** `ops/ci/Dockerfile.ci` provides an ubuntu image
@@ -423,11 +424,11 @@ This narrow scope is enforced at finding-emit time via
 ## v0.5 Daily Merge Loop
 
 ```bash
-jankurai kickoff . --intent "<change request>" --out target/jankurai/kickoff.json --md target/jankurai/kickoff.md
-jankurai context-pack . --changed <path> --max-tokens 6000 --out target/jankurai/context-pack.json --md target/jankurai/context-pack.md
-jankurai prove . --changed <path> --plan-out target/jankurai/proof-plan.json --plan-md target/jankurai/proof-plan.md
-jankurai audit . --mode advisory --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md
-jankurai witness . --changed-from origin/main --baseline agent/baselines/main.repo-score.json --out target/jankurai/merge-witness.json --md target/jankurai/merge-witness.md
+bash ops/ci/governed-jankurai kickoff . --intent "<change request>" --out target/jankurai/kickoff.json --md target/jankurai/kickoff.md
+bash ops/ci/governed-jankurai context-pack . --changed <path> --max-tokens 6000 --out target/jankurai/context-pack.json --md target/jankurai/context-pack.md
+bash ops/ci/governed-jankurai prove . --changed <path> --plan-out target/jankurai/proof-plan.json --plan-md target/jankurai/proof-plan.md
+bash ops/ci/governed-jankurai audit . --mode advisory --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md
+bash ops/ci/governed-jankurai witness . --changed-from origin/main --baseline agent/baselines/main.repo-score.json --out target/jankurai/merge-witness.json --md target/jankurai/merge-witness.md
 ```
 
 Ratchet mode requires an accepted baseline. Merge witness is the PR receipt:

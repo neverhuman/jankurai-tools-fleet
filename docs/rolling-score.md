@@ -5,7 +5,7 @@ The rolling score is Jankurai's trust ledger. Each audit can append a compact JS
 Compare an accepted baseline to a candidate report:
 
 ```bash
-jankurai score diff \
+bash ops/ci/governed-jankurai score diff \
   --base agent/baselines/main.repo-score.json \
   --head target/jankurai/repo-score.json \
   --out target/jankurai/score-diff.json \
@@ -15,11 +15,18 @@ jankurai score diff \
 Summarize the recent ledger:
 
 ```bash
-jankurai score trend \
+bash ops/ci/governed-jankurai score trend \
   --history .jankurai/score-history.jsonl \
   --window 30 \
   --out target/jankurai/score-trend.json \
   --md target/jankurai/score-trend.md
 ```
 
-`jankurai history latest` returns the latest JSONL row, `history export` emits a bounded window with markdown, `history compact` rewrites the ledger in place, and `history restore` rebuilds local history from the mirror sink. `score diff` compares final score, raw score, caps, and findings by fingerprint first, then by rule/path/problem fallback. `score trend` reports the latest window, score delta, best/worst score, latest decision, and high/critical count. Ratchet gates must use an explicit accepted baseline; no implicit current score can become the baseline.
+`bash ops/ci/governed-jankurai history latest` returns the latest JSONL row,
+`history export` emits a bounded window with markdown, `history compact`
+rewrites the ledger in place, and `history restore` rebuilds local history from
+the mirror sink. `score diff` compares final score, raw score, caps, and
+findings by fingerprint first, then by rule/path/problem fallback. `score
+trend` reports the latest window, score delta, best/worst score, latest
+decision, and high/critical count. Ratchet gates must use an explicit accepted
+baseline; no implicit current score can become the baseline.

@@ -1,9 +1,9 @@
-use jankurai_audit_kernel::render::{write_json, write_markdown};
 use crate::score_history::{
     build_history_export, build_history_latest, compact_history_file,
     render_history_export_markdown, restore_history_file, HistorySource,
 };
 use anyhow::Result;
+use jankurai_audit_kernel::render::{write_json, write_markdown};
 use std::path::PathBuf;
 
 #[derive(Debug, Clone)]

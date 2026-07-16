@@ -1,6 +1,6 @@
 use crate::score_history::{self, HistorySource};
-use jankurai_audit_kernel::validation::{self, ArtifactSchema};
 use anyhow::{Context, Result};
+use jankurai_audit_kernel::validation::{self, ArtifactSchema};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::{BTreeMap, BTreeSet};

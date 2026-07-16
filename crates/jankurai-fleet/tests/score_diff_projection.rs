@@ -47,7 +47,10 @@ fn diff_report_tracks_score_delta_caps_and_resolved_findings() {
     assert_eq!(report.raw_score_delta, 16);
 
     // The fast-lane cap was lifted; the docs cap carried over.
-    assert_eq!(report.caps_removed, vec!["no-deterministic-fast-lane".to_string()]);
+    assert_eq!(
+        report.caps_removed,
+        vec!["no-deterministic-fast-lane".to_string()]
+    );
     assert!(report.caps_added.is_empty());
 
     // The single high finding was resolved and nothing new appeared.
@@ -90,7 +93,10 @@ fn diff_report_flags_regressions_and_new_caps() {
     );
 
     assert_eq!(report.score_delta, -26);
-    assert_eq!(report.caps_added, vec!["no-security-lane-on-high-risk-repo".to_string()]);
+    assert_eq!(
+        report.caps_added,
+        vec!["no-security-lane-on-high-risk-repo".to_string()]
+    );
     assert!(report.caps_removed.is_empty());
     assert_eq!(report.new_findings.len(), 1);
     assert_eq!(report.new_high_or_critical, 1);

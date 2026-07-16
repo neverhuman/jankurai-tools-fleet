@@ -6,8 +6,8 @@
 //! scoring logic); each repo is scored with `run_audit_with_options` and the
 //! relevant report fields are projected into a stable matrix row.
 
-use jankurai_audit_kernel::model::{Finding, Report, AUDITOR_VERSION};
 use anyhow::{bail, Context, Result};
+use jankurai_audit_kernel::model::{Finding, Report, AUDITOR_VERSION};
 use serde::{Deserialize, Serialize};
 use std::path::{Path, PathBuf};
 use std::process::Command;

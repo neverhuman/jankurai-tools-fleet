@@ -38,8 +38,8 @@ pub type AuditRunner<'a> = dyn Fn(&Path, &[PathBuf], bool) -> Result<Report> + '
 /// The core proof-plan runner injected by the caller. Mirrors a `proof` run with
 /// `ProofPlanArgs { repo, changed, changed_from, out, md }`; best-effort, so a
 /// returned error is logged and ignored by the caller exactly as before.
-pub type ProofRunner<'a> =
-    dyn Fn(PathBuf, Vec<PathBuf>, Option<String>, Option<String>, Option<String>) -> Result<()> + 'a;
+pub type ProofRunner<'a> = dyn Fn(PathBuf, Vec<PathBuf>, Option<String>, Option<String>, Option<String>) -> Result<()>
+    + 'a;
 
 /// CLI arguments for `jankurai diff-audit`.
 ///

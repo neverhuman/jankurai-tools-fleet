@@ -1,5 +1,5 @@
-use jankurai_audit_kernel::model::Report;
 use anyhow::{bail, Context, Result};
+use jankurai_audit_kernel::model::Report;
 use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::fs::{self, OpenOptions};
@@ -501,10 +501,7 @@ pub fn restore_history_file(
     Ok(compacted)
 }
 
-pub fn build_trend_report(
-    history: &Path,
-    window: usize,
-) -> Result<crate::score::ScoreTrendReport> {
+pub fn build_trend_report(history: &Path, window: usize) -> Result<crate::score::ScoreTrendReport> {
     let rows = load_history_rows(history)?;
     let history_bytes = fs::metadata(history).map(|m| m.len() as usize).unwrap_or(0);
     let selected = select_window(&rows, window);

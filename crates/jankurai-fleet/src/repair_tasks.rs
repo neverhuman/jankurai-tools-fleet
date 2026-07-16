@@ -8,9 +8,9 @@
 //! tool-adoption opportunities, and hard structure/ownership findings — and is
 //! given a stable SHA fingerprint id so the feed diffs cleanly across runs.
 
+use anyhow::{bail, Context, Result};
 use jankurai_audit_kernel::audit::copy_code::{CopyCodeClass, CopyCodeSeverity};
 use jankurai_audit_kernel::model::{Finding, Report, ToolAdoptionItem};
-use anyhow::{bail, Context, Result};
 use serde::Serialize;
 use sha2::{Digest, Sha256};
 use std::collections::{BTreeMap, BTreeSet};
