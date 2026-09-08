@@ -18,7 +18,7 @@ mkdir -p target/jankurai target/jankurai/security target/jankurai/coverage \
 # all adopt the ratchet audit command. The repair queue is the proof-routing
 # evidence that changed-surface obligations were emitted.
 log "tool-adoption: ratchet audit"
-jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md --repair-queue-jsonl target/jankurai/repair-queue.jsonl
+jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md --repair-queue-jsonl target/jankurai/repair-queue.jsonl --full
 # Adopted artifacts: target/jankurai/repo-score.json target/jankurai/repo-score.md
 # target/jankurai/repair-queue.jsonl
 
@@ -41,7 +41,7 @@ jankurai copy-code . --json target/jankurai/copy-code.json --md target/jankurai/
 
 # security: secret + dependency + SBOM/provenance evidence in one lane.
 log "tool-adoption: security run"
-jankurai security run . --out target/jankurai/security/evidence.json
+jankurai security run . --out target/jankurai/security/evidence.json --script ops/ci/security-scans.sh
 # Adopted artifact: target/jankurai/security/evidence.json
 
 # ci/git/release bad-behavior: language-level workflow safety tests. The fleet
