@@ -80,6 +80,14 @@
     ".": {
       "command": "bash scripts/ci-local.sh required",
       "purpose": "required local proof for jankurai-tools-fleet"
+    },
+    ".gitleaksignore": {
+      "command": "bash ops/ci/github-check.sh",
+      "purpose": "scan secrets with exact historical documentation fingerprints"
+    },
+    "tips/": {
+      "command": "bash ops/ci/tool-adoption.sh",
+      "purpose": "validate all 260 source rows through vibe coverage"
     }
   }
 }

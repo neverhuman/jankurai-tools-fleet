@@ -19,6 +19,8 @@
     "Cargo.lock": "tools",
     "crates/": "tools",
     "schemas/": "standard",
-    "docs/": "standard"
+    "docs/": "standard",
+    ".gitleaksignore": "ops",
+    "tips/": "standard"
   }
 }
