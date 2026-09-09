@@ -1,0 +1,1558 @@
+{
+  "report_fingerprint": "sha256:901f2d3aeaf3a702cb8ca5334cfb229299553d6b2a9ca30055bed278f5004eba",
+  "input_fingerprint": "sha256:159adcda59a09a781f2c37e2bd05b21d6e0e87704872bbddb7d5e7c4fef18838",
+  "policy_fingerprint": "sha256:0288290d3bf1a9fa958a7dfa952a416dc7273fc3c906f4ae68d9016f2e30eca1",
+  "manifest_fingerprints": {
+    "owner_map": "sha256:91f5d6277f5d9bb33b6ef74f7944900140db2d98ffcf75aeae4ae879d6a515af",
+    "test_map": "sha256:cb9448bfd910eb8cc3ac3522bdae4ca98ef13bd801f279a78c20eef39d1d7c5b",
+    "generated_zones": "sha256:48f0227c579baed930cdd2aa12c71afd0578a34feadbe084c01efb4982f0a325",
+    "boundaries": "sha256:2f9ad9ab50debe235f7e979c89a365966f1ff425ac55d25076b72d29ca4cf4cc",
+    "proof_lanes": "sha256:9f723ef4c496ed65625a645292f9a07539851ffac3dca54efcbc88184288e9de",
+    "standard_version": "sha256:eca837fba44489931ba1d744017eeb8a205e55c561e98201f0e58a89b77db8dc"
+  },
+  "dirty_worktree": false,
+  "generated_at": "1788927794",
+  "schema_url": "schemas/repo-score.schema.json",
+  "standard": "jankurai",
+  "standard_version": "0.9.0",
+  "auditor_version": "1.6.0",
+  "schema_version": "1.9.0",
+  "paper_edition": "2026.05-ed8",
+  "target_stack_id": "rust-ts-vite-react-postgres-bounded-python",
+  "target_stack": "Rust core + TypeScript/React/Vite + PostgreSQL + generated contracts + exception-only Python AI/data service",
+  "claimed_conformance_level": "HL3",
+  "observed_conformance_level": "HL2",
+  "conformance_decision": "block",
+  "conformance_blockers": [
+    "HLT-002-GENERATED-MUTATION on agent/generated-zones.toml"
+  ],
+  "repo": ".",
+  "run_id": "1788927794",
+  "started_at": "1788927794",
+  "elapsed_ms": 801,
+  "scope": {
+    "mode": "full",
+    "paths": []
+  },
+  "score": 89,
+  "raw_score": 89,
+  "decision": {
+    "status": "advisory",
+    "minimum_score": 85,
+    "passed": true,
+    "hard_findings": 1,
+    "soft_findings": 4,
+    "ratchet": {
+      "baseline_score": 89,
+      "allowed_drop": 0,
+      "passed": false,
+      "score_delta": 0,
+      "baseline_report_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "baseline_input_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "baseline_policy_fingerprint": "sha256:0000000000000000000000000000000000000000000000000000000000000000",
+      "new_caps": [],
+      "new_hard_findings": [],
+      "policy_changed": false
+    }
+  },
+  "git": {
+    "head": "8174dc1",
+    "base": null,
+    "changed_files": 0,
+    "mode": "full",
+    "dirty_worktree": false
+  },
+  "policy": {
+    "path": "./agent/audit-policy.toml",
+    "minimum_score": 85,
+    "fail_on": [
+      "critical",
+      "high"
+    ],
+    "advisory_on": [
+      "medium",
+      "low"
+    ],
+    "mode": "advisory",
+    "standard_version": "0.9.0",
+    "auditor_version": "1.7.0",
+    "schema_version": "1.9.0",
+    "paper_edition": "2026.05-ed8",
+    "target_stack": "rust-ts-vite-react-postgres-bounded-python"
+  },
+  "caps_applied": [],
+  "hard_rules": [
+    {
+      "id": "no-root-agent-instructions",
+      "max_score": 75
+    },
+    {
+      "id": "no-one-command-setup-or-validation",
+      "max_score": 70
+    },
+    {
+      "id": "no-deterministic-fast-lane",
+      "max_score": 65
+    },
+    {
+      "id": "no-security-lane-on-high-risk-repo",
+      "max_score": 60
+    },
+    {
+      "id": "generated-contracts-or-public-api-drift-untested",
+      "max_score": 80
+    },
+    {
+      "id": "python-direct-product-truth-or-db-ownership",
+      "max_score": 72
+    },
+    {
+      "id": "no-secret-or-dependency-scanning-in-ci",
+      "max_score": 78
+    },
+    {
+      "id": "no-jankurai-audit-lane-in-ci",
+      "max_score": 82
+    },
+    {
+      "id": "jankurai-required-tool-ci-evidence-gap",
+      "max_score": 88
+    },
+    {
+      "id": "non-optimal-product-language-found",
+      "max_score": 74
+    },
+    {
+      "id": "too-much-python-in-product-surface",
+      "max_score": 72
+    },
+    {
+      "id": "boundary-reclassification-evidence-gap",
+      "max_score": 72
+    },
+    {
+      "id": "vibe-placeholders-in-product-code",
+      "max_score": 68
+    },
+    {
+      "id": "fallback-soup-in-product-code",
+      "max_score": 70
+    },
+    {
+      "id": "future-hostile-dead-language-in-product-code",
+      "max_score": 64
+    },
+    {
+      "id": "severe-duplication-in-product-code",
+      "max_score": 70
+    },
+    {
+      "id": "generated-zone-mutation-risk",
+      "max_score": 76
+    },
+    {
+      "id": "direct-db-access-from-wrong-layer",
+      "max_score": 66
+    },
+    {
+      "id": "missing-web-e2e-lane",
+      "max_score": 82
+    },
+    {
+      "id": "missing-rendered-ux-qa-lane",
+      "max_score": 84
+    },
+    {
+      "id": "prompt-injection-risk",
+      "max_score": 78
+    },
+    {
+      "id": "overbroad-agent-agency",
+      "max_score": 65
+    },
+    {
+      "id": "secret-like-content-detected",
+      "max_score": 60
+    },
+    {
+      "id": "false-green-test-risk",
+      "max_score": 76
+    },
+    {
+      "id": "destructive-migration-risk",
+      "max_score": 70
+    },
+    {
+      "id": "authz-or-data-isolation-gap",
+      "max_score": 78
+    },
+    {
+      "id": "input-boundary-gap",
+      "max_score": 78
+    },
+    {
+      "id": "agent-tool-supply-chain-gap",
+      "max_score": 78
+    },
+    {
+      "id": "release-readiness-gap",
+      "max_score": 80
+    },
+    {
+      "id": "missing-rust-property-or-integration-tests",
+      "max_score": 82
+    },
+    {
+      "id": "no-agent-friendly-exception-pattern",
+      "max_score": 76
+    },
+    {
+      "id": "missing-agent-readable-docs",
+      "max_score": 80
+    },
+    {
+      "id": "streaming-runtime-drift",
+      "max_score": 78
+    },
+    {
+      "id": "rust-bad-behavior",
+      "max_score": 72
+    },
+    {
+      "id": "sql-bad-behavior",
+      "max_score": 72
+    },
+    {
+      "id": "typescript-bad-behavior",
+      "max_score": 72
+    },
+    {
+      "id": "docker-bad-behavior",
+      "max_score": 72
+    },
+    {
+      "id": "python-bad-behavior",
+      "max_score": 72
+    },
+    {
+      "id": "ci-bad-behavior",
+      "max_score": 70
+    },
+    {
+      "id": "git-bad-behavior",
+      "max_score": 70
+    },
+    {
+      "id": "gittools-bad-behavior",
+      "max_score": 70
+    },
+    {
+      "id": "release-bad-behavior",
+      "max_score": 70
+    },
+    {
+      "id": "web-security-bad-behavior",
+      "max_score": 68
+    },
+    {
+      "id": "repo-rot-bad-behavior",
+      "max_score": 88
+    },
+    {
+      "id": "comment-hygiene-dangerous-residue",
+      "max_score": 72
+    },
+    {
+      "id": "ci-local-parity",
+      "max_score": 70
+    }
+  ],
+  "dimensions": [
+    {
+      "name": "Ownership and navigation surface",
+      "weight": 13,
+      "score": 98,
+      "weighted_points": 12.74,
+      "evidence": [
+        "root `AGENTS.md` present",
+        "owner map present",
+        "test/proof routing map present",
+        "local `AGENTS.md` file(s)",
+        "reference-profile cell `ops` is canonical",
+        "root `README.md` routes to workspace layout",
+        "owner map covers audited paths",
+        "test map covers audited paths"
+      ],
+      "notes": [
+        "reference-profile cell `ops` lacks local AGENTS.md guidance"
+      ]
+    },
+    {
+      "name": "Contract and boundary integrity",
+      "weight": 13,
+      "score": 95,
+      "weighted_points": 12.35,
+      "evidence": [
+        "contract surface found",
+        "generated contract artifacts found",
+        "boundary manifest present",
+        "machine-readable schemas present",
+        "all contract sources have generated zone entries",
+        "schema/tooling contract posture is clean"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Proof lanes and test routing",
+      "weight": 12,
+      "score": 100,
+      "weighted_points": 12.0,
+      "evidence": [
+        "one-command setup/validation lane found",
+        "deterministic fast lane found",
+        "test runner present in automation surface",
+        "GitHub workflow files present",
+        "test/proof routing map present",
+        "jankurai audit lane found in CI",
+        "web e2e lane present or no web surface",
+        "rendered UX QA lane present or no web surface",
+        "Rust property/integration tests present or no Rust surface"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Security and supply-chain posture",
+      "weight": 12,
+      "score": 64,
+      "weighted_points": 7.68,
+      "evidence": [
+        "lockfile present",
+        "secret or dependency scan tooling found",
+        "security lane present",
+        "agent-readiness audit gate found in CI",
+        "ci bad-behavior advisory signals: 1",
+        "secret scanning command is operational"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Code shape and semantic surface",
+      "weight": 12,
+      "score": 90,
+      "weighted_points": 10.8,
+      "evidence": [
+        "no authored adopter product code files in scope"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Data truth and workflow safety",
+      "weight": 8,
+      "score": 90,
+      "weighted_points": 7.2,
+      "evidence": [
+        "no adopter product DB surface; standards/tooling repo classification is explicit"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Observability and repair evidence",
+      "weight": 8,
+      "score": 85,
+      "weighted_points": 6.8,
+      "evidence": [
+        "ops/observability directory present",
+        "repair queue schema is present",
+        "agent-friendly exception pattern found",
+        "repair-hint and receipt convention are documented",
+        "repair receipt guidance is documented"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Context economy and agent instructions",
+      "weight": 7,
+      "score": 93,
+      "weighted_points": 6.51,
+      "evidence": [
+        "root `AGENTS.md` present",
+        "root `AGENTS.md` stays short",
+        "machine-readable routing artifacts present",
+        "local instruction files present",
+        "root README routes to the right docs",
+        "core agent-readable docs present"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Jankurai tool adoption and CI replacement",
+      "weight": 7,
+      "score": 89,
+      "weighted_points": 6.23,
+      "evidence": [
+        "control-plane files present",
+        "applicable=16",
+        "configured=14",
+        "ci_evidence=14",
+        "artifact_verified=14"
+      ],
+      "notes": [
+        "some applicable tools are not configured",
+        "some applicable tools lack CI evidence",
+        "missing CI evidence for `copy-code`",
+        "missing CI evidence for `vibe-coverage`"
+      ]
+    },
+    {
+      "name": "Python containment and polyglot hygiene",
+      "weight": 4,
+      "score": 100,
+      "weighted_points": 4.0,
+      "evidence": [
+        "no Python files in scope"
+      ],
+      "notes": []
+    },
+    {
+      "name": "Build speed signals",
+      "weight": 4,
+      "score": 70,
+      "weighted_points": 2.8,
+      "evidence": [
+        "build acceleration markers found",
+        "targeted test/build commands found",
+        "locked dependency graph present",
+        "CI cache hint found"
+      ],
+      "notes": []
+    }
+  ],
+  "ux_qa": {
+    "web_surface": false,
+    "has_rendered_ux_lane": true,
+    "missing_categories": [],
+    "evidence": {
+      "accessibility": [],
+      "api_mocks": [],
+      "artifact_backed_proof": [
+        "agent/JANKURAI_STANDARD.md"
+      ],
+      "design_tokens": [],
+      "geometry_runtime": [],
+      "layout_stability": [],
+      "playwright_visual": [],
+      "storybook": [],
+      "visual_review": []
+    }
+  },
+  "tool_adoption": {
+    "control_plane_present": true,
+    "applicable_count": 16,
+    "configured_count": 14,
+    "ci_evidence_count": 14,
+    "artifact_verified_count": 14,
+    "replaced_count": 14,
+    "items": [
+      {
+        "id": "audit-ci",
+        "category": "audit",
+        "mode": "auto",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "manual repo scoring",
+          "ad hoc score gates"
+        ],
+        "evidence": [
+          "mode=auto",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: .jankurai/repo-score.json, .jankurai/repo-score.md"
+        ],
+        "missing": [],
+        "local_command": "jankurai audit . --mode advisory --json .jankurai/repo-score.json --md .jankurai/repo-score.md",
+        "ci_command": "jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md",
+        "artifact_paths": [
+          ".jankurai/repo-score.json",
+          ".jankurai/repo-score.md"
+        ]
+      },
+      {
+        "id": "proof-routing",
+        "category": "proof",
+        "mode": "auto",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "ad hoc proof lane selection",
+          "manual proof receipts"
+        ],
+        "evidence": [
+          "mode=auto",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: .jankurai/repo-score.json, .jankurai/repo-score.md, target/jankurai/repair-queue.jsonl"
+        ],
+        "missing": [],
+        "local_command": "jankurai proof . --changed-from origin/main --out target/jankurai/proof-plan.json --md target/jankurai/proof-plan.md",
+        "ci_command": "jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md",
+        "artifact_paths": [
+          ".jankurai/repo-score.json",
+          ".jankurai/repo-score.md",
+          "target/jankurai/repair-queue.jsonl"
+        ]
+      },
+      {
+        "id": "proofbind",
+        "category": "proof",
+        "mode": "advisory",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "manual changed-surface routing",
+          "ad hoc proof obligation lists"
+        ],
+        "evidence": [
+          "mode=advisory",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: target/jankurai/proofbind/surface-witness.json, target/jankurai/proofbind/obligations.json"
+        ],
+        "missing": [],
+        "local_command": "jankurai proofbind verify . --changed-from origin/main",
+        "ci_command": "jankurai proofbind verify . --changed-from origin/main",
+        "artifact_paths": [
+          "target/jankurai/proofbind/surface-witness.json",
+          "target/jankurai/proofbind/obligations.json"
+        ]
+      },
+      {
+        "id": "proofmark-rust",
+        "category": "proof",
+        "mode": "advisory",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "line-only coverage review",
+          "manual in-diff mutation review"
+        ],
+        "evidence": [
+          "mode=advisory",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: target/jankurai/proofmark/proofmark-receipt.json, target/jankurai/proofmark/proof-receipt.json"
+        ],
+        "missing": [],
+        "local_command": "jankurai proofmark rust . --obligations target/jankurai/proofbind/obligations.json",
+        "ci_command": "jankurai proofmark rust . --obligations target/jankurai/proofbind/obligations.json",
+        "artifact_paths": [
+          "target/jankurai/proofmark/proofmark-receipt.json",
+          "target/jankurai/proofmark/proof-receipt.json"
+        ]
+      },
+      {
+        "id": "copy-code",
+        "category": "audit",
+        "mode": "advisory",
+        "applicable": true,
+        "status": "configured",
+        "replaced_tools": [
+          "ad hoc copy-code review",
+          "manual duplication triage"
+        ],
+        "evidence": [
+          "mode=advisory",
+          "tool-adoption config entry present"
+        ],
+        "missing": [
+          "CI command evidence"
+        ],
+        "local_command": "cargo run -p jankurai -- copy-code . --json target/jankurai/copy-code.json --md target/jankurai/copy-code.md",
+        "ci_command": "cargo run -p jankurai -- copy-code . --json target/jankurai/copy-code.json --md target/jankurai/copy-code.md",
+        "artifact_paths": [
+          "target/jankurai/copy-code.json",
+          "target/jankurai/copy-code.md"
+        ]
+      },
+      {
+        "id": "security",
+        "category": "security",
+        "mode": "auto",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "gitleaks",
+          "dependency review",
+          "SBOM/provenance"
+        ],
+        "evidence": [
+          "mode=auto",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: target/jankurai/security/evidence.json"
+        ],
+        "missing": [],
+        "local_command": "jankurai security run . --out target/jankurai/security/evidence.json",
+        "ci_command": "jankurai security run . --out target/jankurai/security/evidence.json",
+        "artifact_paths": [
+          "target/jankurai/security/evidence.json"
+        ]
+      },
+      {
+        "id": "ci-bad-behavior",
+        "category": "security",
+        "mode": "advisory",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "mutable workflow refs",
+          "secret echo/debug workflow checks",
+          "non-blocking security scans"
+        ],
+        "evidence": [
+          "mode=advisory",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: target/jankurai/language-bad-behavior.log"
+        ],
+        "missing": [],
+        "local_command": "cargo test -p jankurai --test language_bad_behavior",
+        "ci_command": "cargo test -p jankurai --test language_bad_behavior",
+        "artifact_paths": [
+          "target/jankurai/language-bad-behavior.log"
+        ]
+      },
+      {
+        "id": "git-bad-behavior",
+        "category": "audit",
+        "mode": "advisory",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "destructive git automation",
+          "force-push release scripts",
+          "hidden stash-based state"
+        ],
+        "evidence": [
+          "mode=advisory",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: target/jankurai/language-bad-behavior.log"
+        ],
+        "missing": [],
+        "local_command": "cargo test -p jankurai --test language_bad_behavior",
+        "ci_command": "cargo test -p jankurai --test language_bad_behavior",
+        "artifact_paths": [
+          "target/jankurai/language-bad-behavior.log"
+        ]
+      },
+      {
+        "id": "release-bad-behavior",
+        "category": "release",
+        "mode": "advisory",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "manual release checklist",
+          "ad hoc tag and artifact review",
+          "manual provenance review"
+        ],
+        "evidence": [
+          "mode=advisory",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: target/jankurai/language-bad-behavior.log"
+        ],
+        "missing": [],
+        "local_command": "cargo test -p jankurai --test language_bad_behavior",
+        "ci_command": "cargo test -p jankurai --test language_bad_behavior",
+        "artifact_paths": [
+          "target/jankurai/language-bad-behavior.log"
+        ]
+      },
+      {
+        "id": "ux-qa",
+        "category": "ux",
+        "mode": "auto",
+        "applicable": false,
+        "status": "not_applicable",
+        "replaced_tools": [
+          "playwright",
+          "axe-core",
+          "visual baselines"
+        ],
+        "evidence": [
+          "mode=auto"
+        ],
+        "missing": [],
+        "local_command": "jankurai ux audit --config agent/ux-qa.toml --out target/jankurai/ux-qa.json",
+        "ci_command": "jankurai ux audit --config agent/ux-qa.toml --out target/jankurai/ux-qa.json",
+        "artifact_paths": [
+          "target/jankurai/ux-qa.json"
+        ]
+      },
+      {
+        "id": "db-migration-analyze",
+        "category": "db",
+        "mode": "auto",
+        "applicable": false,
+        "status": "not_applicable",
+        "replaced_tools": [
+          "manual migration review"
+        ],
+        "evidence": [
+          "mode=auto"
+        ],
+        "missing": [],
+        "local_command": "jankurai migrate . --analyze --json target/jankurai/migration-report.json",
+        "ci_command": "jankurai migrate . --analyze --json target/jankurai/migration-report.json",
+        "artifact_paths": [
+          "target/jankurai/migration-report.json"
+        ]
+      },
+      {
+        "id": "contract-drift",
+        "category": "contract",
+        "mode": "auto",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "handwritten contract drift checks",
+          "openapi diff"
+        ],
+        "evidence": [
+          "mode=auto",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: .jankurai/repo-score.json, .jankurai/repo-score.md"
+        ],
+        "missing": [],
+        "local_command": "jankurai audit . --mode advisory --json .jankurai/repo-score.json --md .jankurai/repo-score.md",
+        "ci_command": "jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md",
+        "artifact_paths": [
+          ".jankurai/repo-score.json",
+          ".jankurai/repo-score.md"
+        ]
+      },
+      {
+        "id": "rust-witness",
+        "category": "rust",
+        "mode": "auto",
+        "applicable": false,
+        "status": "not_applicable",
+        "replaced_tools": [
+          "manual witness graphing"
+        ],
+        "evidence": [
+          "mode=auto"
+        ],
+        "missing": [],
+        "local_command": "jankurai rust witness build .",
+        "ci_command": "jankurai rust witness build .",
+        "artifact_paths": [
+          "target/jankurai/rust/witness-graph.json"
+        ]
+      },
+      {
+        "id": "vibe-coverage",
+        "category": "audit",
+        "mode": "auto",
+        "applicable": true,
+        "status": "configured",
+        "replaced_tools": [
+          "manual vibe-coding coverage spreadsheet"
+        ],
+        "evidence": [
+          "mode=auto",
+          "tool-adoption config entry present"
+        ],
+        "missing": [
+          "CI command evidence"
+        ],
+        "local_command": "jankurai vibe coverage --source agent/vibe-coverage.toml --tips tips/vibe_coding --json target/jankurai/vibe-coverage.json --md target/jankurai/vibe-coverage.md",
+        "ci_command": "jankurai vibe coverage --source agent/vibe-coverage.toml --tips tips/vibe_coding --json target/jankurai/vibe-coverage.json --md target/jankurai/vibe-coverage.md",
+        "artifact_paths": [
+          "target/jankurai/vibe-coverage.json",
+          "target/jankurai/vibe-coverage.md"
+        ]
+      },
+      {
+        "id": "coverage-evidence",
+        "category": "proof",
+        "mode": "auto",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "manual coverage report review",
+          "ad hoc mutation survivor review"
+        ],
+        "evidence": [
+          "mode=auto",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: target/jankurai/coverage/coverage-audit.json, target/jankurai/coverage/coverage-audit.md"
+        ],
+        "missing": [],
+        "local_command": "jankurai coverage audit . --config agent/coverage-sources.toml --json target/jankurai/coverage/coverage-audit.json --md target/jankurai/coverage/coverage-audit.md",
+        "ci_command": "jankurai coverage audit . --config agent/coverage-sources.toml --json target/jankurai/coverage/coverage-audit.json --md target/jankurai/coverage/coverage-audit.md",
+        "artifact_paths": [
+          "target/jankurai/coverage/coverage-audit.json",
+          "target/jankurai/coverage/coverage-audit.md"
+        ]
+      },
+      {
+        "id": "authz-matrix",
+        "category": "security",
+        "mode": "auto",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "manual authz matrix review"
+        ],
+        "evidence": [
+          "mode=auto",
+          "CI command found in workflow",
+          "artifact uploads found: .jankurai/repo-score.json, .jankurai/repo-score.md"
+        ],
+        "missing": [
+          "agent/tool-adoption.toml entry"
+        ],
+        "local_command": "jankurai audit . --mode advisory --json .jankurai/repo-score.json --md .jankurai/repo-score.md",
+        "ci_command": "jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md",
+        "artifact_paths": [
+          ".jankurai/repo-score.json",
+          ".jankurai/repo-score.md"
+        ]
+      },
+      {
+        "id": "input-boundary",
+        "category": "security",
+        "mode": "auto",
+        "applicable": false,
+        "status": "not_applicable",
+        "replaced_tools": [
+          "manual unsafe sink review"
+        ],
+        "evidence": [
+          "mode=auto"
+        ],
+        "missing": [],
+        "local_command": "jankurai audit . --mode advisory --json .jankurai/repo-score.json --md .jankurai/repo-score.md",
+        "ci_command": "jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md",
+        "artifact_paths": [
+          ".jankurai/repo-score.json",
+          ".jankurai/repo-score.md"
+        ]
+      },
+      {
+        "id": "agent-tool-supply",
+        "category": "security",
+        "mode": "auto",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "manual MCP/tool trust review"
+        ],
+        "evidence": [
+          "mode=auto",
+          "CI command found in workflow",
+          "artifact uploads found: .jankurai/repo-score.json, .jankurai/repo-score.md"
+        ],
+        "missing": [
+          "agent/tool-adoption.toml entry"
+        ],
+        "local_command": "jankurai audit . --mode advisory --json .jankurai/repo-score.json --md .jankurai/repo-score.md",
+        "ci_command": "jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md",
+        "artifact_paths": [
+          ".jankurai/repo-score.json",
+          ".jankurai/repo-score.md"
+        ]
+      },
+      {
+        "id": "release-readiness",
+        "category": "release",
+        "mode": "auto",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "manual launch checklist"
+        ],
+        "evidence": [
+          "mode=auto",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: .jankurai/repo-score.json, .jankurai/repo-score.md"
+        ],
+        "missing": [],
+        "local_command": "jankurai audit . --mode advisory --json .jankurai/repo-score.json --md .jankurai/repo-score.md",
+        "ci_command": "jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md",
+        "artifact_paths": [
+          ".jankurai/repo-score.json",
+          ".jankurai/repo-score.md"
+        ]
+      },
+      {
+        "id": "cost-budget",
+        "category": "release",
+        "mode": "auto",
+        "applicable": true,
+        "status": "artifact_verified",
+        "replaced_tools": [
+          "manual spend review"
+        ],
+        "evidence": [
+          "mode=auto",
+          "tool-adoption config entry present",
+          "CI command found in workflow",
+          "artifact uploads found: .jankurai/repo-score.json, .jankurai/repo-score.md"
+        ],
+        "missing": [],
+        "local_command": "jankurai audit . --mode advisory --json .jankurai/repo-score.json --md .jankurai/repo-score.md",
+        "ci_command": "jankurai audit . --mode ratchet --baseline target/jankurai/accepted-baseline.json --json target/jankurai/repo-score.json --md target/jankurai/repo-score.md",
+        "artifact_paths": [
+          ".jankurai/repo-score.json",
+          ".jankurai/repo-score.md"
+        ]
+      }
+    ],
+    "evidence": {
+      "applicable_count": 16,
+      "applicable_tools": [
+        "audit-ci",
+        "proof-routing",
+        "proofbind",
+        "proofmark-rust",
+        "copy-code",
+        "security",
+        "ci-bad-behavior",
+        "git-bad-behavior",
+        "release-bad-behavior",
+        "contract-drift",
+        "vibe-coverage",
+        "coverage-evidence",
+        "authz-matrix",
+        "agent-tool-supply",
+        "release-readiness",
+        "cost-budget"
+      ],
+      "artifact_verified_count": 14,
+      "artifact_verified_tools": [
+        "audit-ci",
+        "proof-routing",
+        "proofbind",
+        "proofmark-rust",
+        "security",
+        "ci-bad-behavior",
+        "git-bad-behavior",
+        "release-bad-behavior",
+        "contract-drift",
+        "coverage-evidence",
+        "authz-matrix",
+        "agent-tool-supply",
+        "release-readiness",
+        "cost-budget"
+      ],
+      "ci_evidence_count": 14,
+      "ci_evidence_tools": [
+        "audit-ci",
+        "proof-routing",
+        "proofbind",
+        "proofmark-rust",
+        "security",
+        "ci-bad-behavior",
+        "git-bad-behavior",
+        "release-bad-behavior",
+        "contract-drift",
+        "coverage-evidence",
+        "authz-matrix",
+        "agent-tool-supply",
+        "release-readiness",
+        "cost-budget"
+      ],
+      "config_present": true,
+      "configured_count": 14,
+      "configured_tools": [
+        "audit-ci",
+        "proof-routing",
+        "proofbind",
+        "proofmark-rust",
+        "copy-code",
+        "security",
+        "ci-bad-behavior",
+        "git-bad-behavior",
+        "release-bad-behavior",
+        "contract-drift",
+        "vibe-coverage",
+        "coverage-evidence",
+        "release-readiness",
+        "cost-budget"
+      ],
+      "control_plane_present": true
+    },
+    "missing": [
+      "copy-code",
+      "vibe-coverage"
+    ]
+  },
+  "security_evidence": {},
+  "boundaries": {
+    "reclassifications": []
+  },
+  "copy_code": {
+    "schema_version": "1.1.0",
+    "generated_by": "jankurai copy-code",
+    "generated_at": "2026-09-09T04:23:13.611281740+00:00",
+    "repo": ".",
+    "auditor_version": "1.7.0",
+    "status": "review",
+    "policy": {
+      "active_source_only": true,
+      "include_tests": false,
+      "min_lines": 10,
+      "min_tokens": 100,
+      "max_findings": 50,
+      "strict": false,
+      "excluded_roots": [
+        "build/",
+        "cache/",
+        "dist/",
+        "docs/",
+        "generated/",
+        "node_modules/",
+        "paper/",
+        "reference/",
+        "target/",
+        "tips/",
+        "vendor/"
+      ],
+      "warning_only_roots": [
+        "config/",
+        "docker/",
+        "fixtures/",
+        "migrations/",
+        "ops/scripts/",
+        "python_runtime/",
+        "stories/",
+        "runtime_payload/",
+        "seed_data/",
+        "tests/"
+      ]
+    },
+    "summary": {
+      "files_scanned": 73,
+      "files_considered": 7,
+      "active_files": 7,
+      "exact_file_classes": 0,
+      "hard_classes": 0,
+      "warning_classes": 1,
+      "hard_instances": 0,
+      "warning_instances": 3,
+      "duplicate_lines": 1,
+      "duplicate_tokens": 4,
+      "duplicate_bytes": 24,
+      "total_redundant_lines": 2,
+      "total_redundant_tokens": 8,
+      "total_redundant_bytes": 48
+    },
+    "classes": [
+      {
+        "id": "copy-code-body-rust-4a2fe53a0072c263",
+        "kind": "exact_unit_different_name",
+        "severity": "warning",
+        "confidence": "medium",
+        "language": "rust",
+        "duplicate_lines": 1,
+        "duplicate_tokens": 4,
+        "duplicate_bytes": 24,
+        "instance_count": 3,
+        "total_redundant_lines": 2,
+        "total_redundant_tokens": 8,
+        "total_redundant_bytes": 48,
+        "effective_severity": "warning",
+        "hard_fail": false,
+        "fingerprint": "4efd054f5302e478",
+        "reason": "same body appears under different names across files",
+        "recommended_action": "choose one owner for the shared body or intentionally differentiate the behavior",
+        "instances": [
+          {
+            "path": "crates/jankurai-fleet/src/repair_tasks.rs",
+            "language": "rust",
+            "start_line": 370,
+            "end_line": 371,
+            "unit_name": "render_markdown"
+          },
+          {
+            "path": "crates/jankurai-fleet/src/score_history.rs",
+            "language": "rust",
+            "start_line": 628,
+            "end_line": 629,
+            "unit_name": "render_history_export_markdown"
+          },
+          {
+            "path": "crates/jankurai-fleet/src/score_history.rs",
+            "language": "rust",
+            "start_line": 709,
+            "end_line": 710,
+            "unit_name": "render_history_trend_markdown"
+          }
+        ]
+      }
+    ],
+    "notes": [
+      "hard classes are limited to exact active-source file matches and substantial exact same-name units",
+      "warning classes include same-body different-name units and token/block duplication",
+      "tests, fixtures, stories, config, Docker, and migrations are omitted unless --include-tests is set"
+    ]
+  },
+  "profile_structure": {
+    "applicable_count": 1,
+    "canonical_count": 1,
+    "noncanonical_count": 0,
+    "guidance_missing_count": 1,
+    "cells": [
+      {
+        "id": "web",
+        "applicable": false,
+        "status": "not_applicable",
+        "canonical_path": "apps/web/",
+        "detected_paths": [],
+        "aliases": [
+          "frontend/",
+          "ui/",
+          "packages/web/",
+          "packages/ui/"
+        ],
+        "guidance_status": "not_required",
+        "owner": "apps/web",
+        "proof_lane": "rendered UX / Playwright",
+        "agent_fix": "no action"
+      },
+      {
+        "id": "api",
+        "applicable": false,
+        "status": "not_applicable",
+        "canonical_path": "apps/api/",
+        "detected_paths": [],
+        "aliases": [
+          "api/",
+          "server/",
+          "backend/"
+        ],
+        "guidance_status": "not_required",
+        "owner": "apps/api",
+        "proof_lane": "edge handler / contract tests",
+        "agent_fix": "no action"
+      },
+      {
+        "id": "domain",
+        "applicable": false,
+        "status": "not_applicable",
+        "canonical_path": "crates/domain/",
+        "detected_paths": [],
+        "aliases": [
+          "domain/",
+          "core/"
+        ],
+        "guidance_status": "not_required",
+        "owner": "crates/domain",
+        "proof_lane": "unit / property tests",
+        "agent_fix": "no action"
+      },
+      {
+        "id": "application",
+        "applicable": false,
+        "status": "not_applicable",
+        "canonical_path": "crates/application/",
+        "detected_paths": [],
+        "aliases": [
+          "application/",
+          "usecases/",
+          "use-cases/"
+        ],
+        "guidance_status": "not_required",
+        "owner": "crates/application",
+        "proof_lane": "use-case / authz tests",
+        "agent_fix": "no action"
+      },
+      {
+        "id": "adapters",
+        "applicable": false,
+        "status": "not_applicable",
+        "canonical_path": "crates/adapters/",
+        "detected_paths": [],
+        "aliases": [
+          "adapters/",
+          "infra/",
+          "integrations/"
+        ],
+        "guidance_status": "not_required",
+        "owner": "crates/adapters",
+        "proof_lane": "adapter integration tests",
+        "agent_fix": "no action"
+      },
+      {
+        "id": "workers",
+        "applicable": false,
+        "status": "not_applicable",
+        "canonical_path": "crates/workers/",
+        "detected_paths": [],
+        "aliases": [
+          "workers/",
+          "jobs/",
+          "scheduler/",
+          "queue/"
+        ],
+        "guidance_status": "not_required",
+        "owner": "crates/workers",
+        "proof_lane": "workflow / replay tests",
+        "agent_fix": "no action"
+      },
+      {
+        "id": "contracts",
+        "applicable": false,
+        "status": "not_applicable",
+        "canonical_path": "contracts/",
+        "detected_paths": [],
+        "aliases": [
+          "openapi/",
+          "protobuf/",
+          "json-schema/",
+          "generated/"
+        ],
+        "guidance_status": "not_required",
+        "owner": "contracts",
+        "proof_lane": "generation / drift checks",
+        "agent_fix": "no action"
+      },
+      {
+        "id": "db",
+        "applicable": false,
+        "status": "not_applicable",
+        "canonical_path": "db/",
+        "detected_paths": [],
+        "aliases": [
+          "migrations/",
+          "constraints/",
+          "sql/"
+        ],
+        "guidance_status": "not_required",
+        "owner": "db",
+        "proof_lane": "migration / constraint tests",
+        "agent_fix": "no action"
+      },
+      {
+        "id": "python-ai",
+        "applicable": false,
+        "status": "not_applicable",
+        "canonical_path": "python/ai-service/",
+        "detected_paths": [],
+        "aliases": [
+          "python/",
+          "ai-service/",
+          "evals/",
+          "embeddings/",
+          "model/"
+        ],
+        "guidance_status": "not_required",
+        "owner": "python/ai-service",
+        "proof_lane": "eval / contract tests",
+        "agent_fix": "no action"
+      },
+      {
+        "id": "ops",
+        "applicable": true,
+        "status": "canonical",
+        "canonical_path": "ops/",
+        "detected_paths": [
+          ".github",
+          ".github/workflows",
+          "ops"
+        ],
+        "aliases": [
+          ".github/",
+          ".github/workflows/",
+          "ci/",
+          "release/",
+          "observability/",
+          "security/"
+        ],
+        "guidance_status": "missing",
+        "owner": "ops",
+        "proof_lane": "security lane / workflow lint",
+        "agent_fix": "add `ops/AGENTS.md` with owns / forbidden / proof lane guidance"
+      }
+    ],
+    "evidence": {
+      "applicable_count": 1,
+      "canonical_count": 1,
+      "detected_cells": [
+        {
+          "canonical_path": "ops/",
+          "detected_paths": [
+            ".github",
+            ".github/workflows",
+            "ops"
+          ],
+          "guidance_status": "missing",
+          "id": "ops",
+          "status": "canonical"
+        }
+      ],
+      "guidance_missing_count": 1,
+      "noncanonical_count": 0
+    }
+  },
+  "vibe_coverage": {
+    "source_path": "agent/vibe-coverage.toml",
+    "issue_count": 260,
+    "source_ref_count": 260,
+    "unmapped_source_rows": 0,
+    "coverage_counts": {
+      "detector-backed": 17,
+      "partial": 243
+    },
+    "tlr_counts": {
+      "Business truth": 26,
+      "Context/setup": 14,
+      "Entropy": 25,
+      "Repair": 19,
+      "Security": 114,
+      "Verification": 62
+    },
+    "priority_counts": {
+      "P0": 17,
+      "P1": 203,
+      "P2": 40
+    },
+    "top_gaps": [
+      {
+        "id": "VCOV-TIP1-R001",
+        "name": "Accept-All Blindness",
+        "coverage": "partial",
+        "priority": "P1",
+        "gap": "needs issue-specific fixture, CI artifact, or governance receipt evidence before claiming detector-backed coverage",
+        "next_action": "attach narrowed detector evidence or accepted governance receipt for this row family"
+      },
+      {
+        "id": "VCOV-TIP1-R002",
+        "name": "Looks-Correct-but-Insecure Code",
+        "coverage": "partial",
+        "priority": "P1",
+        "gap": "needs issue-specific fixture, CI artifact, or governance receipt evidence before claiming detector-backed coverage",
+        "next_action": "attach narrowed detector evidence or accepted governance receipt for this row family"
+      },
+      {
+        "id": "VCOV-TIP1-R003",
+        "name": "Broken Access Control / IDOR / BOLA",
+        "coverage": "partial",
+        "priority": "P1",
+        "gap": "needs issue-specific fixture, CI artifact, or governance receipt evidence before claiming detector-backed coverage",
+        "next_action": "attach narrowed detector evidence or accepted governance receipt for this row family"
+      },
+      {
+        "id": "VCOV-TIP1-R004",
+        "name": "Confusing Public vs. Private Visibility",
+        "coverage": "partial",
+        "priority": "P1",
+        "gap": "needs issue-specific fixture, CI artifact, or governance receipt evidence before claiming detector-backed coverage",
+        "next_action": "attach narrowed detector evidence or accepted governance receipt for this row family"
+      },
+      {
+        "id": "VCOV-TIP1-R005",
+        "name": "Database Row-Level Security Misconfiguration",
+        "coverage": "partial",
+        "priority": "P1",
+        "gap": "needs issue-specific fixture, CI artifact, or governance receipt evidence before claiming detector-backed coverage",
+        "next_action": "attach narrowed detector evidence or accepted governance receipt for this row family"
+      },
+      {
+        "id": "VCOV-TIP1-R007",
+        "name": "AI Chat History Leakage",
+        "coverage": "partial",
+        "priority": "P1",
+        "gap": "needs issue-specific fixture, CI artifact, or governance receipt evidence before claiming detector-backed coverage",
+        "next_action": "attach narrowed detector evidence or accepted governance receipt for this row family"
+      }
+    ]
+  },
+  "coverage_evidence": {
+    "artifact": "target/jankurai/coverage/coverage-audit.json",
+    "status": "missing",
+    "sources_total": 0,
+    "sources_present": 0,
+    "hard_findings": 0,
+    "soft_findings": 1
+  },
+  "findings": [
+    {
+      "severity": "medium",
+      "category": "security",
+      "path": ".github/workflows/jankurai.yml",
+      "problem": "`Security and supply-chain posture` scored 64 below the standard floor of 85",
+      "agent_fix": "wire secret, dependency, provenance, and workflow scans into an operational CI lane",
+      "evidence": [
+        "lockfile present",
+        "secret or dependency scan tooling found",
+        "security lane present",
+        "agent-readiness audit gate found in CI"
+      ],
+      "check_id": "HLT-016-SUPPLY-CHAIN-DRIFT:security",
+      "hardness": "soft",
+      "confidence": 0.76,
+      "evidence_kind": "workflow-command",
+      "rerun_command": "just security",
+      "fingerprint": "sha256:6d4b4c73801779faa31f701793e9e7c7a2589fe425f3f66e08f79cf03ea489de",
+      "rule_id": "HLT-016-SUPPLY-CHAIN-DRIFT",
+      "tlr": "Security, secrets, agency",
+      "lane": "security",
+      "docs_url": "docs/audit-rubric.md#top-level-risk-mapping",
+      "owner": "ops"
+    },
+    {
+      "severity": "medium",
+      "category": "proof",
+      "path": "Justfile",
+      "problem": "`Build speed signals` scored 70 below the standard floor of 85",
+      "agent_fix": "add fast deterministic build/test targets, caches, and narrow proof lanes for agent iteration",
+      "evidence": [
+        "build acceleration markers found",
+        "targeted test/build commands found",
+        "locked dependency graph present",
+        "CI cache hint found"
+      ],
+      "check_id": "HLT-018-PERF-CONCURRENCY-DRIFT:proof",
+      "hardness": "soft",
+      "confidence": 0.76,
+      "evidence_kind": "repository-scan",
+      "rerun_command": "just fast",
+      "fingerprint": "sha256:a256a7390d4b91a5b0a95d6f092e524c8f4080f27fe2b62e28cf0801343d0fef",
+      "rule_id": "HLT-018-PERF-CONCURRENCY-DRIFT",
+      "tlr": "Verification",
+      "lane": "fast",
+      "docs_url": "docs/testing.md",
+      "owner": "ops"
+    },
+    {
+      "severity": "high",
+      "category": "generated",
+      "path": "agent/generated-zones.toml",
+      "problem": "generated zone file `target/` is missing",
+      "agent_fix": "regenerate `target/` using the declared command, or remove the zone entry if the file was deleted intentionally",
+      "evidence": [
+        "generated zone integrity violation"
+      ],
+      "check_id": "HLT-002-GENERATED-MUTATION:generated",
+      "hardness": "hard",
+      "confidence": 0.95,
+      "evidence_kind": "contract-manifest",
+      "rerun_command": "just fast",
+      "fingerprint": "sha256:5426237a11233c74602294c2b6d8972d6256c78c8d467e736b858848adf5d755",
+      "rule_id": "HLT-002-GENERATED-MUTATION",
+      "tlr": "Contracts/data",
+      "lane": "contract",
+      "docs_url": "agent/JANKURAI_STANDARD.md#generated-zones",
+      "owner": "agent",
+      "line": 1
+    },
+    {
+      "severity": "medium",
+      "category": "context",
+      "path": "ops/",
+      "problem": "reference-profile cell `ops` lacks local AGENTS.md guidance",
+      "agent_fix": "add `ops/AGENTS.md` with owns / forbidden / proof lane guidance",
+      "evidence": [
+        "canonical_path=ops/",
+        "detected_paths=.github, .github/workflows, ops",
+        "guidance_status=missing",
+        "owner=ops",
+        "proof_lane=security lane / workflow lint"
+      ],
+      "check_id": "HLT-038-REFERENCE-PROFILE-STRUCTURE-GAP:context",
+      "hardness": "soft",
+      "confidence": 0.88,
+      "evidence_kind": "repository-scan",
+      "rerun_command": "just fast",
+      "fingerprint": "sha256:a26aa21c41a661e5636601d50d6a226eb3c4835b8bcc5915a6801e829cab40b1",
+      "rule_id": "HLT-038-REFERENCE-PROFILE-STRUCTURE-GAP",
+      "tlr": "Context/setup",
+      "lane": "fast",
+      "docs_url": "docs/audit-rubric.md#required-shape",
+      "owner": "ops"
+    },
+    {
+      "severity": "medium",
+      "category": "test",
+      "path": "agent/coverage-sources.toml",
+      "problem": "coverage evidence lane is configured but has not been run",
+      "agent_fix": "run `cargo run -p jankurai -- coverage audit . --config agent/coverage-sources.toml --json target/jankurai/coverage/coverage-audit.json --md target/jankurai/coverage/coverage-audit.md`",
+      "evidence": [
+        "agent/coverage-sources.toml exists"
+      ],
+      "check_id": "HLT-008-FALSE-GREEN-RISK:coverage-evidence",
+      "hardness": "soft",
+      "confidence": 0.76,
+      "evidence_kind": "test",
+      "rerun_command": "cargo run -p jankurai -- coverage audit . --config agent/coverage-sources.toml --json target/jankurai/coverage/coverage-audit.json --md target/jankurai/coverage/coverage-audit.md",
+      "fingerprint": "sha256:d80fbd966029c39ef6dde3a73b2f46834e117ee6c16c85385ccf415d0d3719b5",
+      "rule_id": "HLT-008-FALSE-GREEN-RISK",
+      "tlr": "Verification",
+      "lane": "coverage-audit",
+      "docs_url": "docs/testing.md",
+      "owner": "agent",
+      "matched_term": "coverage-evidence",
+      "reason": "coverage evidence artifact `target/jankurai/coverage/coverage-audit.json`"
+    }
+  ],
+  "agent_fix_queue": [
+    {
+      "path": "agent/generated-zones.toml",
+      "priority": "high",
+      "rule_id": "HLT-002-GENERATED-MUTATION",
+      "tlr": "Contracts/data",
+      "lane": "contract",
+      "owner": "agent",
+      "task": "regenerate `target/` using the declared command, or remove the zone entry if the file was deleted intentionally",
+      "why": "generated zone file `target/` is missing"
+    },
+    {
+      "path": "Justfile",
+      "priority": "medium",
+      "rule_id": "HLT-018-PERF-CONCURRENCY-DRIFT",
+      "tlr": "Verification",
+      "lane": "fast",
+      "owner": "ops",
+      "task": "add fast deterministic build/test targets, caches, and narrow proof lanes for agent iteration",
+      "why": "`Build speed signals` scored 70 below the standard floor of 85"
+    },
+    {
+      "path": "agent/coverage-sources.toml",
+      "priority": "medium",
+      "rule_id": "HLT-008-FALSE-GREEN-RISK",
+      "tlr": "Verification",
+      "lane": "coverage-audit",
+      "owner": "agent",
+      "task": "run `cargo run -p jankurai -- coverage audit . --config agent/coverage-sources.toml --json target/jankurai/coverage/coverage-audit.json --md target/jankurai/coverage/coverage-audit.md`",
+      "why": "coverage evidence lane is configured but has not been run"
+    },
+    {
+      "path": "ops/",
+      "priority": "medium",
+      "rule_id": "HLT-038-REFERENCE-PROFILE-STRUCTURE-GAP",
+      "tlr": "Context/setup",
+      "lane": "fast",
+      "owner": "ops",
+      "task": "add `ops/AGENTS.md` with owns / forbidden / proof lane guidance",
+      "why": "reference-profile cell `ops` lacks local AGENTS.md guidance"
+    },
+    {
+      "path": ".github/workflows/jankurai.yml",
+      "priority": "medium",
+      "rule_id": "HLT-016-SUPPLY-CHAIN-DRIFT",
+      "tlr": "Security, secrets, agency",
+      "lane": "security",
+      "owner": "ops",
+      "task": "wire secret, dependency, provenance, and workflow scans into an operational CI lane",
+      "why": "`Security and supply-chain posture` scored 64 below the standard floor of 85"
+    }
+  ]
+}
