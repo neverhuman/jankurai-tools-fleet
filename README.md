@@ -1,6 +1,8 @@
 # jankurai-tools-fleet
 
+<!-- jankurai-badge:start -->
 [![jankurai audit](agent/jankurai-badge.svg)](agent/jankurai-badge.json)
+<!-- jankurai-badge:end -->
 
 Fleet aggregation, score diff/trend, score history, diff-audit, and repair-task
 projections for the **jankurai** audit standard. This repository is one member of
